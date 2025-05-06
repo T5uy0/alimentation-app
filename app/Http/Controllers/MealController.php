@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMealRequest;
+use App\Http\Requests\UpdateMealRequest;
 use App\Models\Meal;
 
 
@@ -49,15 +50,19 @@ class MealController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $meal = Meal::find($id);
+        return view('meals.edit', compact('meal'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateMealRequest $request, string $id)
     {
-        //
+        $meal = Meal::find($id);
+        $meal->update($request->validated());
+
+        return redirect()->route('meals.index')->with('success', 'Meal updated successfully!');
     }
 
     /**
@@ -65,6 +70,9 @@ class MealController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $meal = Meal::find($id);
+        $meal->delete(); // Soft delete (ne supprime pas vraiment de la BDD)
+
+        return redirect()->route('meals.index')->with('success', 'Meal deleted successfully!');
     }
 }
