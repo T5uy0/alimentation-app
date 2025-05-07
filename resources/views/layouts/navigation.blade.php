@@ -5,14 +5,14 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Nav Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
@@ -52,7 +52,8 @@
 <div class="flex pt-14">
     <!-- Sidebar -->
     <aside class="w-56 bg-white h-screen shadow fixed left-0 top-14 p-4 flex flex-col space-y-4">
-        <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600">🏠 Dashboard</a>
+        <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600">🏠 Dashboard</a>
+        <a href="{{ route('consumptions.index') }}" class="text-gray-700 hover:text-blue-600">🥘 Consumptions</a>
         <a href="{{ route('meals.index') }}" class="text-gray-700 hover:text-blue-600">🍔 Meals</a>
         <a href="#" class="text-gray-700 hover:text-blue-600">📊 Analytics</a>
         <a href="#" class="text-gray-700 hover:text-blue-600">⚙️ Settings</a>

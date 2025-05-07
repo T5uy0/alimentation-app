@@ -13,4 +13,9 @@ class Meal extends Model
 
     protected $fillable = ['name', 'calories', 'proteins', 'carbohydrate', 'lipids'];
 
+    public function consumptions()
+    {
+        return $this->hasMany(Consumption::class);
+    }
+
 }
