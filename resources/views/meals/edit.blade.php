@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Edit Meal')
-
-@section('content')
+<x-app-layout>
     <div class="max-w-xl mx-auto py-8">
         <h1 class="text-2xl font-bold mb-6">Edit Meal</h1>
 
@@ -55,4 +51,4 @@
             </button>
         </form>
     </div>
-@endsection
+</x-app-layout>

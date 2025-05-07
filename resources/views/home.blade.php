@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Home')
-
-@section('content')
+<x-app-layout>
     <div class="max-w-4xl mx-auto">
         <h1 class="text-4xl font-bold mb-4">Welcome to <span class="text-blue-600">Alimentation App</span> 🍽️</h1>
         <p class="text-gray-700 text-lg mb-6">
@@ -11,12 +7,12 @@
 
         <div class="flex space-x-4">
             <a href="{{ route('meals.index') }}"
-               class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition">
+            class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition">
                 View Meals
             </a>
 
             <a href="{{ route('meals.create') }}"
-               class="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700 transition">
+            class="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700 transition">
                 Add a Meal
             </a>
         </div>
@@ -38,4 +34,5 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
+
