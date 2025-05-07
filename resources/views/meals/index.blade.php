@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-4xl mx-auto py-8">
+    <div class="max-w-7xl mx-auto py-8">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Meals</h1>
             <a href="{{ route('meals.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
@@ -27,7 +27,11 @@
             <tbody>
                 @forelse($meals as $meal)
                     <tr class="border-b">
-                        <td class="px-4 py-2">{{ $meal->name }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ route('meals.show', $meal) }}" class="text-blue-600 hover:underline">
+                                {{ $meal->name ?? '—' }}
+                            </a>
+                        </td>
                         <td class="px-4 py-2">{{ $meal->calories }}</td>
                         <td class="px-4 py-2">{{ $meal->proteins }}</td>
                         <td class="px-4 py-2">{{ $meal->carbohydrate }}</td>
