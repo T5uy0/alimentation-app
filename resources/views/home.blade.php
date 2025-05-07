@@ -11,7 +11,7 @@
                 Add a consumption
             </a>
             <a href="{{ route('meals.index') }}"
-            class="bg-orange-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition">
+            class="bg-orange-600 text-white px-6 py-2 rounded shadow hover:bg-orange-700 transition">
                 View Meals
             </a>
 
@@ -20,31 +20,42 @@
                 Add a Meal
             </a>
         </div>
+        @if(!$consumptions->isEmpty())
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-4 bg-white rounded shadow text-center">
-                <h2 class="text-xl font-semibold mb-2">Calories</h2>
-                <p class="text-gray-600">Track your caloric intake</p>
-            </div>
+                <div class="p-4 bg-white rounded shadow text-center">
+                    <h2 class="text-xl font-semibold mb-2">Calories</h2>
+                    <p class="text-gray-700 text-lg font-bold">
+                        {{ $totals['calories'] }} kcal
+                    </p>
+                </div>
 
-            <div class="p-4 bg-white rounded shadow text-center">
-                <h2 class="text-xl font-semibold mb-2">Macros</h2>
-                <p class="text-gray-600">Proteins, fats and carbohydrates</p>
-            </div>
+                <div class="p-4 bg-white rounded shadow text-center">
+                    <h2 class="text-xl font-semibold mb-2">Macros</h2>
+                    <p class="text-gray-600">Proteins: <strong>{{ $totals['proteins'] }}g</strong></p>
+                    <p class="text-gray-600">Carbs: <strong>{{ $totals['carbohydrate'] }}g</strong></p>
+                    <p class="text-gray-600">Fats: <strong>{{ $totals['lipids'] }}g</strong></p>
+                </div>
 
-            <div class="p-4 bg-white rounded shadow text-center">
-                <h2 class="text-xl font-semibold mb-2">History</h2>
-                <p class="text-gray-600">View your saved meals</p>
+                <div class="p-4 bg-white rounded shadow text-center">
+                    <h2 class="text-xl font-semibold mb-2">Today</h2>
+                    <p class="text-gray-600">You logged {{ $totals['calories'] > 0 ? 'meals today' : 'no meals yet' }}.</p>
+                    <a href="{{ route('consumptions.index') }}" class="text-blue-600 hover:underline text-sm">
+                        View consumptions →
+                    </a>
+                </div>
+
             </div>
-        </div>
+        @endif
+
 
         <h2 class="text-2xl font-bold m-4">Today's Consumptions</h2>
         <div class="p-4 bg-white rounded shadow text-center">
-            @if($todayConsumptions->isEmpty())
+            @if($consumptions->isEmpty())
                 <p class="text-gray-600">No consumptions recorded for today.</p>
             @else
                 <ul class="space-y-2">
-                    @foreach($todayConsumptions as $consumption)
+                    @foreach($consumptions as $consumption)
                         <li class="bg-white p-4 rounded shadow flex justify-between">
                             <div>
                                 <strong>{{ $consumption->meal->name }}</strong><br>

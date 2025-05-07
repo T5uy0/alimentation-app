@@ -24,6 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('consumptions', ConsumptionController::class);
 });
 
-
+use App\Http\Controllers\AnalyticsController;
 
 require __DIR__.'/auth.php';

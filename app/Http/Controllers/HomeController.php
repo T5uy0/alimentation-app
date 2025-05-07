@@ -9,12 +9,31 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $todayConsumptions = Consumption::with('meal')
+        $today = Carbon::today();
+
+        $consumptions = Consumption::with('meal')
             ->where('user_id', auth()->id())
-            ->whereDate('consumed_at', Carbon::today())
-            ->orderBy('consumed_at', 'desc')
+            ->whereDate('consumed_at', $today)
             ->get();
 
-        return view('home',compact('todayConsumptions'));
+
+        $totals = [
+            'calories' => 0,
+            'proteins' => 0,
+            'carbohydrate' => 0,
+            'lipids' => 0,
+        ];
+
+        foreach ($consumptions as $consumption) {
+            $meal = $consumption->meal;
+            $quantity = $consumption->quantity;
+
+            $totals['calories']     += $meal->calories * $quantity;
+            $totals['proteins']     += $meal->proteins * $quantity;
+            $totals['carbohydrate'] += $meal->carbohydrate * $quantity;
+            $totals['lipids']       += $meal->lipids * $quantity;
+        }
+
+        return view('home',compact('totals','consumptions'));
     }
 }

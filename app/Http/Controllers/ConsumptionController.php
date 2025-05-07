@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Meal;
 use App\Models\Consumption;
 use App\Http\Requests\StoreConsumptionRequest;
+use App\Http\Requests\UpdateConsumptionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -14,7 +15,7 @@ class ConsumptionController extends Controller
      */
     public function index()
     {
-        $consumptions = Consumption::orderBy("created_at","desc")->get();
+        $consumptions = Consumption::orderBy('consumed_at', 'desc')->get();
         // $todayConsumptions = Consumption::with('meal')
         //     ->where('user_id', auth()->id())
         //     ->whereDate('consumed_at', Carbon::today())
@@ -59,24 +60,46 @@ class ConsumptionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Consumption $consumption)
     {
-        //
+        if ($consumption->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $meals = Meal::orderBy('name')->get();
+
+        return view('consumptions.edit', compact('consumption', 'meals'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateConsumptionRequest $request, Consumption $consumption)
     {
-        //
+        if ($consumption->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $consumption->update($request->validated());
+
+        return redirect()
+            ->route('consumptions.index')
+            ->with('success', 'Consumption updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Consumption $consumption)
     {
-        //
+        if ($consumption->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $consumption->delete();
+
+        return redirect()
+            ->route('consumptions.index')
+            ->with('success', 'Consumption deleted successfully.');
     }
 }
