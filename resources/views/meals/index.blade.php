@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Meals')
-
-@section('content')
+<x-app-layout>
     <div class="max-w-4xl mx-auto py-8">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Meals</h1>
@@ -60,4 +56,4 @@
             </tbody>
         </table>
     </div>
-@endsection
+</x-app-layout>
