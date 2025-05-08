@@ -54,6 +54,7 @@
                         </label>
                         <input type="datetime-local" name="consumed_at" id="consumed_at"
                             value="{{ old('consumed_at', now()->format('Y-m-d\TH:i')) }}"
+                            max="{{ now()->format('Y-m-d\TH:i') }}"
                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
                         @error('consumed_at')
                             <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
@@ -63,10 +64,10 @@
                     <div>
                         <label for="type" class="block text-sm font-medium">Meal Type</label>
                         <select name="type" id="type" class="w-full border rounded p-2">
-                            <option value="breakfast" {{ old('type', $consumption->type ?? '') == 'breakfast' ? 'selected' : '' }}>Petit déjeuner</option>
-                            <option value="lunch" {{ old('type', $consumption->type ?? '') == 'lunch' ? 'selected' : '' }}>Dîner</option>
-                            <option value="dinner" {{ old('type', $consumption->type ?? '') == 'dinner' ? 'selected' : '' }}>Souper</option>
-                            <option value="snack" {{ old('type', $consumption->type ?? '') == 'snack' ? 'selected' : '' }}>En-cas</option>
+                            <option value="breakfast" {{ old('type', $consumption->type ?? '') == 'breakfast' ? 'selected' : '' }}>Breakfast</option>
+                            <option value="lunch" {{ old('type', $consumption->type ?? '') == 'lunch' ? 'selected' : '' }}>Lunch</option>
+                            <option value="dinner" {{ old('type', $consumption->type ?? '') == 'dinner' ? 'selected' : '' }}>Dinner</option>
+                            <option value="snack" {{ old('type', $consumption->type ?? '') == 'snack' ? 'selected' : '' }}>Snack</option>
                         </select>
                         @error('type') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
                     </div>
