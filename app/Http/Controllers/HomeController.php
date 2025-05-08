@@ -34,6 +34,17 @@ class HomeController extends Controller
             $totals['lipids']       += $meal->lipids * $quantity;
         }
 
-        return view('home',compact('totals','consumptions'));
+        $types = ['breakfast', 'lunch', 'dinner', 'snack'];
+        $grouped = [];
+
+        foreach ($types as $type) {
+            $grouped[$type] = \App\Models\Consumption::with('meal')
+                ->where('user_id', auth()->id())
+                ->where('type', $type)
+                ->orderByDesc('consumed_at')
+                ->get();
+        }
+
+        return view('home',compact('totals','consumptions','grouped'));
     }
 }

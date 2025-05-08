@@ -49,29 +49,47 @@
         @endif
 
 
-        <h2 class="text-2xl font-bold m-4">Today's Consumptions</h2>
-        <div class="p-4 bg-white rounded shadow text-center">
-            @if($consumptions->isEmpty())
-                <p class="text-gray-600">No consumptions recorded for today.</p>
-            @else
-                <ul class="space-y-2">
-                    @foreach($consumptions as $consumption)
-                        <li class="bg-white p-4 rounded shadow flex justify-between">
-                            <div>
-                                <strong>{{ $consumption->meal->name }}</strong><br>
-                                Quantity: {{ $consumption->quantity }}<br>
-                                Time: {{ $consumption->consumed_at->format('H:i') }}
+        <div class="max-w-7xl mx-auto py-8 px-4">
+            <h1 class="text-2xl font-bold mb-6">Your Consumptions Today</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($grouped as $type => $consumptions)
+                    <div class="bg-white rounded shadow p-4">
+                        <h2 class="text-lg font-semibold mb-4 text-center">
+                            @if($type === 'breakfast')
+                                🥐 Breakfast
+                            @elseif($type === 'lunch')
+                                🍽️ Lunch
+                            @elseif($type === 'dinner')
+                                🍝 Dinner
+                            @elseif($type === 'snack')
+                                🍎 Snack
+                            @else
+                                {{ ucfirst($type) }}
+                            @endif
+                        </h2>
+
+                        @forelse($consumptions as $consumption)
+                            <div class="border-b pb-2 mb-2 text-sm">
+                                <div class="font-medium">
+                                    <a href="{{ route('meals.show', $consumption->meal) }}"
+                                       class="text-blue-600 hover:underline">
+                                        {{ $consumption->meal->name ?? '—' }}
+                                    </a>
+                                </div>
+                                <div>Quantity: {{ $consumption->quantity }}</div>
+                                <div class="text-gray-500 text-xs">
+                                    {{ $consumption->consumed_at->format('Y-m-d H:i') }}
+                                </div>
                             </div>
-                            <div class="text-right text-sm text-gray-500">
-                                {{ $consumption->consumed_at->diffForHumans() }}
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
+                        @empty
+                            <p class="text-gray-500 text-sm text-center">No consumptions logged.</p>
+                        @endforelse
+                    </div>
+                @endforeach
+            </div>
         </div>
+
     </div>
-
-
 </x-app-layout>
 

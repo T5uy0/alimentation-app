@@ -15,7 +15,7 @@ class ConsumptionController extends Controller
      */
     public function index()
     {
-        $consumptions = Consumption::orderBy('consumed_at', 'desc')->get();
+        $consumptions = Consumption::where('user_id', auth()->id())->orderBy('consumed_at', 'desc')->get();
         // $todayConsumptions = Consumption::with('meal')
         //     ->where('user_id', auth()->id())
         //     ->whereDate('consumed_at', Carbon::today())
