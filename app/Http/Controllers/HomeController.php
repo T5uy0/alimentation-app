@@ -45,6 +45,13 @@ class HomeController extends Controller
                 ->get();
         }
 
-        return view('home',compact('totals','consumptions','grouped'));
+        $targets = [
+            'calories' => 2500,
+            'proteins' => 150,     // g
+            'carbohydrate' => 300, // g
+            'lipids' => 70,        // g
+        ];
+
+        return view('home',compact('totals','consumptions','grouped','targets'));
     }
 }
