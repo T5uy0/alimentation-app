@@ -15,7 +15,9 @@ class MealController extends Controller
      */
     public function index()
     {
-        $meals = Meal::all();
+        $meals = Meal::availableTo(auth()->id())
+            ->orderBy('name')
+            ->get();
         return view('meals.index', compact('meals'));
     }
 
@@ -32,7 +34,10 @@ class MealController extends Controller
      */
     public function store(StoreMealRequest $request)
     {
-        Meal::create($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+
+        Meal::create($data);
 
         return redirect()->route('meals.index')->with('success', 'Meal created successfully!');
     }

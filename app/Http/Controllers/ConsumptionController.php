@@ -30,9 +30,9 @@ class ConsumptionController extends Controller
      */
     public function create()
     {
-        // Récupère tous les repas disponibles pour l'utilisateur connecté
-        $meals = Meal::orderBy('name')->get();
-
+        $meals = Meal::availableTo(auth()->id())
+            ->orderBy('name')
+            ->get();
         return view('consumptions.create', compact('meals'));
     }
 
@@ -66,7 +66,9 @@ class ConsumptionController extends Controller
             abort(403);
         }
 
-        $meals = Meal::orderBy('name')->get();
+        $meals = Meal::availableTo(auth()->id())
+            ->orderBy('name')
+            ->get();
 
         return view('consumptions.edit', compact('consumption', 'meals'));
     }

@@ -21,7 +21,6 @@
                     <th class="px-4 py-2">Proteins</th>
                     <th class="px-4 py-2">Carbohydrate</th>
                     <th class="px-4 py-2">Lipids</th>
-                    <th class="px-4 py-2 text-right">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,21 +35,6 @@
                         <td class="px-4 py-2">{{ $meal->proteins }}</td>
                         <td class="px-4 py-2">{{ $meal->carbohydrate }}</td>
                         <td class="px-4 py-2">{{ $meal->lipids }}</td>
-                        <td class="px-4 py-2 text-right space-x-2">
-                            <a href="{{ route('meals.edit', $meal) }}"
-                               class="inline-block bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
-                                Edit
-                            </a>
-                            <form action="{{ route('meals.destroy', $meal) }}" method="POST" class="inline-block"
-                                  onsubmit="return confirm('Are you sure you want to delete this meal?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                        class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
                     </tr>
                 @empty
                     <tr>

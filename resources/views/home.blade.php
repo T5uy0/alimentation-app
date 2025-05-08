@@ -96,7 +96,7 @@
                     {{-- Fats --}}
                     <div>
                         <div class="flex justify-between text-sm font-medium text-gray-700 mb-1">
-                            <span>Fats</span>
+                            <span>Lipids</span>
                             <span>{{ $totals['lipids'] }} / {{ $targets['lipids'] }}g</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-4">

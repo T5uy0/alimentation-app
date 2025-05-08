@@ -5,20 +5,21 @@
             <h1 class="text-2xl font-bold">Meal Details</h1>
 
             <div class="flex gap-2">
-                <a href="{{ route('meals.edit', $meal) }}"
-                   class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-                    Edit
-                </a>
-
-                <form action="{{ route('meals.destroy', $meal) }}" method="POST"
-                      onsubmit="return confirm('Are you sure you want to delete this meal?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                        Delete
-                    </button>
-                </form>
+                @if ($meal->user_id != null)
+                    <a href="{{ route('meals.edit', $meal) }}"
+                        class="inline-block bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+                        Edit
+                    </a>
+                    <form action="{{ route('meals.destroy', $meal) }}" method="POST" class="inline-block"
+                        onsubmit="return confirm('Are you sure you want to delete this meal?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                            Delete
+                        </button>
+                    </form>
+                @endif
             </div>
         </div>
 
