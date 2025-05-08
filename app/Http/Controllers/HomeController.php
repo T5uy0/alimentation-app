@@ -41,6 +41,7 @@ class HomeController extends Controller
             $grouped[$type] = \App\Models\Consumption::with('meal')
                 ->where('user_id', auth()->id())
                 ->where('type', $type)
+                ->whereDate('consumed_at', $today)
                 ->orderByDesc('consumed_at')
                 ->get();
         }
