@@ -38,6 +38,17 @@
                 @error('consumed_at') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
+            <div>
+                <label for="type" class="block text-sm font-medium">Meal Type</label>
+                <select name="type" id="type" class="w-full border rounded p-2">
+                    <option value="breakfast" {{ old('type', $consumption->type ?? '') == 'breakfast' ? 'selected' : '' }}>Petit déjeuner</option>
+                    <option value="lunch" {{ old('type', $consumption->type ?? '') == 'lunch' ? 'selected' : '' }}>Dîner</option>
+                    <option value="dinner" {{ old('type', $consumption->type ?? '') == 'dinner' ? 'selected' : '' }}>Souper</option>
+                    <option value="snack" {{ old('type', $consumption->type ?? '') == 'snack' ? 'selected' : '' }}>En-cas</option>
+                </select>
+                @error('type') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+            </div>
+
             <div class="pt-4">
                 <button type="submit"
                         class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">

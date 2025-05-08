@@ -20,6 +20,7 @@
                     <th class="px-4 py-2">Meal</th>
                     <th class="px-4 py-2">Quantity</th>
                     <th class="px-4 py-2">Calories</th>
+                    <th class="px-4 py-2">Type</th>
                     <th class="px-4 py-2">Consumed At</th>
                     <th class="px-4 py-2 text-right">Actions</th>
                 </tr>
@@ -31,7 +32,7 @@
 
                 @forelse($grouped as $date => $items)
                     <tr class="bg-gray-100 text-sm text-gray-700">
-                        <td colspan="5" class="px-4 py-2 font-semibold">
+                        <td colspan="6" class="px-4 py-2 font-semibold">
                             {{ \Carbon\Carbon::parse($date)->format('F j, Y') }}
                         </td>
                     </tr>
@@ -47,9 +48,13 @@
                             <td class="px-4 py-2">
                                 {{ $consumption->meal->calories * $consumption->quantity }}
                             </td>
+                            <td class="px-4 py-2 capitalize text-sm text-gray-700">
+                                {{ ucfirst($consumption->type) }}
+                            </td>
                             <td class="px-4 py-2">
                                 {{ $consumption->consumed_at->format('H:i') }}
                             </td>
+
                             <td class="px-4 py-2 text-right space-x-2">
                                 <a href="{{ route('consumptions.edit', $consumption) }}"
                                    class="inline-block bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">

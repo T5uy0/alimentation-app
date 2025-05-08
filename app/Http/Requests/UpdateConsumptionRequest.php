@@ -25,6 +25,7 @@ class UpdateConsumptionRequest extends FormRequest
             'meal_id' => ['required', 'exists:meals,id'],
             'quantity' => ['required', 'integer', 'min:1'],
             'consumed_at' => ['required', 'date', 'before_or_equal:now'],
+            'type' => ['required', 'in:breakfast,lunch,dinner,snack'],
         ];
     }
 }

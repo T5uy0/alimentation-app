@@ -14,6 +14,7 @@ class Consumption extends Model
         'meal_id',
         'quantity',
         'consumed_at',
+        'type',
     ];
     protected $casts = [
         'consumed_at' => 'datetime',
