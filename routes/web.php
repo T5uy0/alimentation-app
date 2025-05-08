@@ -12,9 +12,11 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::middleware('auth')->group(function () {
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
