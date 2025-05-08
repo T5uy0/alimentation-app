@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="max-w-4xl mx-auto py-8">
+<x-app-layout>
+<div class="max-w-7xl mx-auto py-8">
     <h1 class="text-2xl font-bold mb-4">Create a Meal</h1>
 
     @if(session('success'))
@@ -48,4 +46,4 @@
         </button>
     </form>
 </div>
-@endsection
+</x-app-layout>
