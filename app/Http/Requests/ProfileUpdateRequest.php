@@ -2,14 +2,21 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Détermine si l'utilisateur est autorisé à faire cette requête.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Règles de validation pour la mise à jour du profil.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -20,11 +27,25 @@ class ProfileUpdateRequest extends FormRequest
             'email' => [
                 'required',
                 'string',
-                'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
+                Rule::unique('users')->ignore($this->user()->id),
             ],
+        ];
+    }
+
+    /**
+     * Messages de validation personnalisés.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom est obligatoire.',
+            'email.required' => 'L\'email est obligatoire.',
+            'email.email' => 'L\'email doit être une adresse email valide.',
+            'email.unique' => 'Cette adresse email est déjà utilisée.',
         ];
     }
 }

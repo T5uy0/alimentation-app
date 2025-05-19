@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto py-8">
         <h1 class="text-4xl font-bold mb-4">Welcome to <span class="text-blue-600">Alimentation App</span> 🍽️</h1>
         <p class="text-gray-700 text-lg mb-6">
             Track your meals, monitor your nutritional intake, and stay in control of your diet.
