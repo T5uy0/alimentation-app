@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ConsumptionController;
+use App\Http\Controllers\AnalyticsController;
 use App\Models\Consumption;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('meals', MealController::class);
     Route::resource('consumptions', ConsumptionController::class);
-});
 
-use App\Http\Controllers\AnalyticsController;
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
+});
 
 require __DIR__.'/auth.php';

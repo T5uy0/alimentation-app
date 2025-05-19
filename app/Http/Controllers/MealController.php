@@ -13,11 +13,42 @@ class MealController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $meals = Meal::availableTo(auth()->id())
-            ->orderBy('name')
-            ->get();
+        $query = Meal::availableTo(auth()->id());
+
+        // Filtre par nom
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Filtre par calories
+        if ($request->filled('min_calories')) {
+            $query->where('calories', '>=', $request->min_calories);
+        }
+
+        // Filtre par nutriment
+        if ($request->filled('nutrient_filter')) {
+            $nutrient = $request->nutrient_filter;
+            $value = $request->nutrient_value;
+
+            if ($value > 0) {
+                switch ($nutrient) {
+                    case 'proteins':
+                        $query->where('proteins', '>=', $value);
+                        break;
+                    case 'carbohydrate':
+                        $query->where('carbohydrate', '>=', $value);
+                        break;
+                    case 'lipids':
+                        $query->where('lipids', '>=', $value);
+                        break;
+                }
+            }
+        }
+
+        $meals = $query->orderBy('name')->get();
+
         return view('meals.index', compact('meals'));
     }
 
@@ -39,7 +70,7 @@ class MealController extends Controller
 
         Meal::create($data);
 
-        return redirect()->route('meals.index')->with('success', 'Meal created successfully!');
+        return redirect()->route('meals.index')->with('success', 'Meal added successfully!');
     }
 
     /**
@@ -76,7 +107,7 @@ class MealController extends Controller
     public function destroy(string $id)
     {
         $meal = Meal::find($id);
-        $meal->delete(); // Soft delete (ne supprime pas vraiment de la BDD)
+        $meal->delete();
 
         return redirect()->route('meals.index')->with('success', 'Meal deleted successfully!');
     }
